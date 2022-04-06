@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'f_first_angular_project';
+
+  getName():void{
+    console.log("Mi primer proyecto Angular");
+  }
 }
