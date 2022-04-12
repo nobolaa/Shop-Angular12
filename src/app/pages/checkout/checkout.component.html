@@ -7,8 +7,8 @@
                 [(ngModel)]="model.name"
                 name="name"
                 #name="ngModel"
-            />
-            <mat-error *ngIf="!name.valid || name.pristine">
+            required/>
+            <mat-error>
                 Name is required
             </mat-error>
         </mat-form-field>

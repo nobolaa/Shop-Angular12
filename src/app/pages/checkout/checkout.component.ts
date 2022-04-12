@@ -45,7 +45,7 @@ export class CheckoutComponent implements OnInit {
       city: formData.city,
       store: formData.store,
       date: this.getCurrentDay(),
-      pickup: this.isDelivery
+      pickup: !this.isDelivery
     }
 
     this.orderSvc.saveOrder(dataOrder).pipe(
