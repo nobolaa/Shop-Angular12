@@ -17,22 +17,24 @@ export class CheckoutComponent implements OnInit {
   }
 
   stores!: Store[];
+  isDelivery !: boolean;
 
   constructor(private dataSvc: DataService) { }
 
   ngOnInit(): void {
     this.getStores();
+    this.isDelivery = false;
   }
 
   onPickupOrDelivery(option : boolean): void{
-    
+    this.isDelivery = option;
   }
 
   onSubmit():void{
     
   }
 
-  getStores(): void{
+  private getStores(): void{
     this.dataSvc.getStores()
       .pipe(
         tap((stores: Store[]) => this.stores = stores)

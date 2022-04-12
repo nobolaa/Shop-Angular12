@@ -18,49 +18,54 @@
             <mat-radio-button 
                 value="pickup"
                 (change)="onPickupOrDelivery(false)"
+                checked
                 >Pickup
             </mat-radio-button>
             <mat-radio-button value="" 
                 value="delivery"
                 (change)="onPickupOrDelivery(true)"
-                >Pickup
+                >Delivery
             </mat-radio-button>
         </mat-radio-group>
 
-        <mat-form-field class="form__element">
-            <input
-                matInput
-                placeholder="Shipping Address"
-                [(ngModel)]="model.shippingAddress"
-                name="shippingAddress"
-                #shippingAddress="ngModel"
-            />
-        </mat-form-field>
+        <ng-container  *ngIf="isDelivery; else showStores">
+            <mat-form-field class="form__element">
+                <input
+                    matInput
+                    placeholder="Shipping Address"
+                    [(ngModel)]="model.shippingAddress"
+                    name="shippingAddress"
+                    #shippingAddress="ngModel"
+                />
+            </mat-form-field>
+            <mat-form-field class="form__element">
+                <input
+                    matInput
+                    placeholder="City"
+                    [(ngModel)]="model.city"
+                    name="city"
+                    #city="ngModel"
+                />
+            </mat-form-field>
+        </ng-container>
 
-        <mat-form-field class="form__element">
-            <input
-                matInput
-                placeholder="City"
-                [(ngModel)]="model.city"
-                name="city"
-                #city="ngModel"
-            />
-        </mat-form-field>
+        <ng-template #showStores>
+            <mat-form-field class="form__element">
+                <mat-label>Select me</mat-label>
+                <mat-select 
+                    [(ngModel)]="model.store"
+                    name="store"
+                    #store="ngModel"
+                >
+                    <mat-option 
+                        [value]="tienda" 
+                        *ngFor="let tienda of stores"
+                    >{{tienda.name}} - {{tienda.openingHours }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </ng-template>
 
-        <mat-form-field class="form__element">
-            <mat-label>Select me</mat-label>
-            <mat-select 
-                [(ngModel)]="model.store"
-                name="store"
-                #store="ngModel"
-            >
-                <mat-option 
-                    [value]="tienda" 
-                    *ngFor="let tienda of stores"
-                >{{tienda.name}} - {{tienda.openingHours }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-
+       
         <app-details></app-details>
     </form>
 </div>
