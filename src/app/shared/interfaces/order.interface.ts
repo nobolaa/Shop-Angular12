@@ -10,6 +10,7 @@ export interface Order{
     date:string;
     shippingAddress:string;
     city:string;
+    store:string;
     pickup: boolean;
 }
 

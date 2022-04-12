@@ -58,7 +58,7 @@
                     #store="ngModel"
                 >
                     <mat-option 
-                        [value]="tienda" 
+                        [value]="tienda.id" 
                         *ngFor="let tienda of stores"
                     >{{tienda.name}} - {{tienda.openingHours }}</mat-option>
                 </mat-select>
