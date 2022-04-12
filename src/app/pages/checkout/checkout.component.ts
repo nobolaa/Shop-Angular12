@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/interfaces/store.interface';
 import { DataService } from 'src/app/shared/services/data.service';
 import { tap } from 'rxjs/operators';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -30,8 +31,8 @@ export class CheckoutComponent implements OnInit {
     this.isDelivery = option;
   }
 
-  onSubmit():void{
-    
+  onSubmit({ value: formData }: NgForm):void{
+    console.log("guardar", formData);
   }
 
   private getStores(): void{
@@ -41,4 +42,5 @@ export class CheckoutComponent implements OnInit {
       ).subscribe();
   }
 
+  
 }

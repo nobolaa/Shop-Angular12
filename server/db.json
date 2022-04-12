@@ -127,11 +127,5 @@
       }
     ],
     "detailsOrders": [
-      {
-        "id": 1,
-        "orderId": 1,
-        "quantity": 10,
-        "productName": "Product name"
-      }
     ]
   }

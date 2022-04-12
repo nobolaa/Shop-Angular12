@@ -13,14 +13,18 @@
     .form__element{
         padding: 5px 0px 25px 2px;
         width: 100%;
-        margin-bottom: 0.5rem;
+        margin-bottom: rem;
+    }
+
+    .mat-radio-button{
+        margin: 0rem 1rem 1rem 0rem;
     }
 }
 
 .container__button{
     margin: 0 auto;
     display: block;
-    width: 40%;
+    width: 30%;
     margin-top: 4rem;
     
     button{
