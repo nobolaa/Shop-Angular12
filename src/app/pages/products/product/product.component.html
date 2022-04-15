@@ -6,8 +6,10 @@
         {{ product.description }}
     </mat-card-content>
     <mat-card-actions>
-        <button mat-flat-button color="primary" (click)="onClick()">
+        <button mat-flat-button color="primary" (click)="onClick()" [disabled]="product.stock==0">
             Buy {{ product.price | currency}} 
+            <ng-container *ngIf="(product.stock > 0); else numStock">({{ product.stock }} available)</ng-container>
+            <ng-template #numStock>(Out of stock)</ng-template>
             <mat-icon>add_shopping_cart</mat-icon>
         </button>
     </mat-card-actions>
