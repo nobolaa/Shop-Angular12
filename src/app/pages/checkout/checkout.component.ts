@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from 'src/app/shared/interfaces/store.interface';
 import { DataService } from 'src/app/shared/services/data.service';
-import { switchMap, tap } from 'rxjs/operators';
+import { delay, switchMap, tap } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { Details, Order } from 'src/app/shared/interfaces/order.interface';
 import { Product } from '../products/interfaces/product.interface';
 import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -25,7 +26,11 @@ export class CheckoutComponent implements OnInit {
   isDelivery: boolean = false;
   cart: Product[] = [];
 
-  constructor(private dataSvc: DataService, private orderSvc: OrderService, private shoppingCartSvc: ShoppingCartService) { }
+  constructor(
+    private dataSvc: DataService, 
+    private orderSvc: OrderService, 
+    private shoppingCartSvc: ShoppingCartService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getStores();
@@ -37,7 +42,7 @@ export class CheckoutComponent implements OnInit {
     this.isDelivery = option;
   }
 
-  onSubmit({ value: formData }: NgForm):void{
+  onSubmit({ value: formData }: NgForm): void{
     const dataOrder: Order = {
       id: formData.id,
       name: formData.name,
@@ -52,7 +57,10 @@ export class CheckoutComponent implements OnInit {
       switchMap( ({id: orderId}) => {
         const details = this.prepareDetails();
         return this.orderSvc.saveDetailsOrder({ details, orderId });
-      } ),
+      }),
+      tap(() => this.router.navigate(['/checkout/thank-you-page'])),
+      delay(200),
+      tap(() => this.shoppingCartSvc.resetCart())
     ).subscribe();
   }
 

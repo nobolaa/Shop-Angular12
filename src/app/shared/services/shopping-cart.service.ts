@@ -29,6 +29,14 @@ export class ShoppingCartService{
         this.calcTotal();
     }
 
+    resetCart(): void{
+        this.products = [];
+
+        this.cartSubject.next(this.products);
+        this.totalSubject.next(0);
+        this.quantitySubject.next(0);
+    }
+
     private addToCart(product: Product):void{
         const isProductInCart = this.products.find( ({id}) => id == product.id );
 
@@ -49,5 +57,6 @@ export class ShoppingCartService{
         const quantity = this.products.reduce( (qty, prod) => qty += prod.quantity, 0);
         this.quantitySubject.next(quantity);
     }
+
 
 }
