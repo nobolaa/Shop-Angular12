@@ -1,0 +1,23 @@
+.container{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 5%;
+    height: 80%;
+    flex-direction: column;
+    text-align: center;
+
+    .title{
+        font-size: 5rem;
+    }
+
+    .content{
+        font-size: 1.5rem;
+        padding: 1rem;
+    }
+
+    span{
+        margin-left: 25%;
+        width: 50%;
+    }
+}
