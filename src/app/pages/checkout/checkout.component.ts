@@ -8,6 +8,7 @@ import { Details, Order } from 'src/app/shared/interfaces/order.interface';
 import { Product } from '../products/interfaces/product.interface';
 import { ShoppingCartService } from 'src/app/shared/services/shopping-cart.service';
 import { Router } from '@angular/router';
+import { ProductsService } from '../products/services/products.service';
 
 @Component({
   selector: 'app-checkout',
@@ -30,12 +31,12 @@ export class CheckoutComponent implements OnInit {
     private dataSvc: DataService, 
     private orderSvc: OrderService, 
     private shoppingCartSvc: ShoppingCartService,
+    private productSvc: ProductsService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.getStores();
     this.getDataCart();
-    this.prepareDetails();
   }
 
   onPickupOrDelivery(option : boolean): void{
@@ -80,7 +81,9 @@ export class CheckoutComponent implements OnInit {
 
     this.cart.forEach((product: Product) => {
       const {id:productId, name:productName, quantity, stock} = product;
-      details.push({productId, quantity, productName});
+      this.productSvc.updateProductBought(productId, stock-quantity).pipe(
+        tap(() =>  details.push({productId, quantity, productName}))
+      ).subscribe();
     })
 
     return details;
