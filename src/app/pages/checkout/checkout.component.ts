@@ -59,9 +59,9 @@ export class CheckoutComponent implements OnInit {
         const details = this.prepareDetails();
         return this.orderSvc.saveDetailsOrder({ details, orderId });
       }),
+      delay(1000),
+      tap(() => this.shoppingCartSvc.resetCart()),
       tap(() => this.router.navigate(['/checkout/thank-you-page'])),
-      delay(200),
-      tap(() => this.shoppingCartSvc.resetCart())
     ).subscribe();
   }
 
@@ -81,9 +81,8 @@ export class CheckoutComponent implements OnInit {
 
     this.cart.forEach((product: Product) => {
       const {id:productId, name:productName, quantity, stock} = product;
-      this.productSvc.updateProductBought(productId, stock-quantity).pipe(
-        tap(() =>  details.push({productId, quantity, productName}))
-      ).subscribe();
+      this.productSvc.updateProductBought(productId, stock-quantity).pipe().subscribe();
+      details.push({productId, quantity, productName})
     })
 
     return details;

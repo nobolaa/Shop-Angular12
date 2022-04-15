@@ -24,9 +24,13 @@ export class ShoppingCartService{
     }
 
     updateCart(product: Product): void{
-        this.addToCart(product);
-        this.calcQuantity();
-        this.calcTotal();
+        const isProductInCart = this.products.find( ({id}) => id == product.id );
+
+        if(!isProductInCart ||(isProductInCart && isProductInCart.stock>isProductInCart.quantity)){
+            this.addToCart(product, isProductInCart);
+            this.calcQuantity();
+            this.calcTotal();
+        }
     }
 
     resetCart(): void{
@@ -37,9 +41,7 @@ export class ShoppingCartService{
         this.quantitySubject.next(0);
     }
 
-    private addToCart(product: Product):void{
-        const isProductInCart = this.products.find( ({id}) => id == product.id );
-
+    private addToCart(product: Product, isProductInCart: any):void{
         if(isProductInCart){
             isProductInCart.quantity++;
         }
